@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div ng-controller="MyController as app">
+        <button ng-click="app.undo()" ng-disabled="!app.tracker.canUndo">Undo</button>
+        <button ng-click="app.redo()" ng-disabled="!app.tracker.canRedo">Redo</button>
+
+        <p ng-repeat="comment in app.comments track by $index">{{comment}} <a ng-click="app.remove($index)">Remove</a></p>
+
+        <textarea ng-model="app.text"></textarea>
+
+        <button ng-click="app.submit(app.text)" ng-disabled="!app.text.length">Submit</button>
+    </div>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="/dist/clickago.js"></script>
+    <script>
+        (function () {
+            "use strict";
+
+            var app, tracker;
+
+            tracker = new Clickago();
+
+            window.tracker = tracker;
+
+            app = angular.module("app", []);
+
+            app.controller("MyController", [function () {
+                this.tracker = tracker;
+
+                this.comments = [];
+
+                this.addComment = function (text) {
+                    this.comments[this.comments.length] = text;
+                };
+
+                this.submit = function (text) {
+                    this.tracker.register({
+                        method: this.addComment,
+                        thisArg: this,
+                        arguments: [text]
+                    }, {
+                        method: this.removeComment,
+                        thisArg: this,
+                        arguments: [this.comments.length]
+                    });
+
+                    this.addComment(text);
+
+                    this.text = "";
+                };
+
+                this.remove = function (index) {
+                    this.tracker.register({
+                        method: this.removeComment,
+                        thisArg: this,
+                        arguments: [index]
+                    }, {
+                        method: this.addComment,
+                        thisArg: this,
+                        arguments: [this.comments[index]]
+                    });
+
+                    this.removeComment(index);
+                };
+
+                this.removeComment = function (index) {
+                    this.comments.splice(index, 1);
+                };
+
+                this.undo = function () {
+                    this.tracker.undo();
+                };
+
+                this.redo = function () {
+                    this.tracker.redo();
+                };
+            }]);
+        })();
+    </script>
+</body>
+</html>
