@@ -66,8 +66,31 @@ ___
 
 ### .disable()
 
-Disables `.undo()` and `.redo()`
+Disables `.undo()` and `.redo()` methods (you can still register new actions).
 
+Example:
+
+```javascript
+tracker.disable();
+
+tracker.undo(); // returns undefined;
+
+trakcer.canUndo; // false
+tracker.canRedo; // false
+```
+___
+
+### .disable()
+
+Disables `.undo()` and `.redo()` methods (you can still register new actions).
+
+Example:
+
+```javascript
+tracker.enable();
+
+tracker.undo(); // Alerts "My bad. You can keep your job."
+```
 ___
 
 ## Example
