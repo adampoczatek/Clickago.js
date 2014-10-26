@@ -39,6 +39,8 @@ Example:
 
     tracker.undo(); // Alerts "My bad. You can keep your job."
 
+___
+
 ### .redo()
 
 This method will get the newest `actionOptions` and evaluate it.
@@ -46,6 +48,8 @@ This method will get the newest `actionOptions` and evaluate it.
 Example:
 
     tracker.redo(); // Alerts "You're fired!"
+    
+___
 
 ### .canUndo / .canRedo
 
