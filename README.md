@@ -10,25 +10,27 @@ Use this method to register events.
 
 Example:
 
-    var message, tracker;
-    
-    tracker = new Clickago();
+```javascript
+var message, tracker;
 
-    message = function (text) {
-        alert(text);
-    };
+tracker = new Clickago();
 
-    tracker.register({
-        method: message,
-        thisArg: window,
-        arguments: ["You're fired!"]
-    }, {
-        method: message,
-        thisArg: window,
-        arguments: ["My bad. You can keep your job."]
-    });
-    
-    message("You're fired!"); // Alerts "You're fired!"
+message = function (text) {
+    alert(text);
+};
+
+tracker.register({
+    method: message,
+    thisArg: window,
+    arguments: ["You're fired!"]
+}, {
+    method: message,
+    thisArg: window,
+    arguments: ["My bad. You can keep your job."]
+});
+
+message("You're fired!"); // Alerts "You're fired!"
+```
 ___
 
 ### .undo()
@@ -37,7 +39,9 @@ This method will get the newest `rollbackOptions` and evaluate it.
 
 Example:
 
-    tracker.undo(); // Alerts "My bad. You can keep your job."
+```javascript
+tracker.undo(); // Alerts "My bad. You can keep your job."
+```
 
 ___
 
@@ -47,8 +51,9 @@ This method will get the newest `actionOptions` and evaluate it.
 
 Example:
 
-    tracker.redo(); // Alerts "You're fired!"
-    
+```javascript
+tracker.redo(); // Alerts "You're fired!"
+```
 ___
 
 ### .canUndo / .canRedo
@@ -59,84 +64,85 @@ ___
 
 ## Example
 
+```javascript
+(function () {
+    "use strict";
 
-    (function () {
-        "use strict";
+    var tracker, comments;
 
-        var tracker, comments;
+    // Initialise Clickago class.
+    tracker = new Clickago();
 
-        // Initialise Clickago class.
-        tracker = new Clickago();
+    comments = [];
 
-        comments = [];
+    // Inserting comments to the collection.
+    function insertComment (comment) {
+        comments[comments.length] = comment;
+    };
 
-        // Inserting comments to the collection.
-        function insertComment (comment) {
-            comments[comments.length] = comment;
-        };
+    // Removing comments from the collection.
+    function removeComment (index) {
+        comments.splice(index, 1);
+    };
 
-        // Removing comments from the collection.
-        function removeComment (index) {
-            comments.splice(index, 1);
-        };
+    // Wraper function around `insertComment` which registers the events.
+    function addComment (comment) {
+        tracker.register({
+            method: insertComment,
+            thisArg: null,
+            arguments: [comment]
+        }, {
+            method: removeComment,
+            thisArg: null,
+            arguments: [comments.length]
+        });
 
-        // Wraper function around `insertComment` which registers the events.
-        function addComment (comment) {
-            tracker.register({
-                method: insertComment,
-                thisArg: null,
-                arguments: [comment]
-            }, {
-                method: removeComment,
-                thisArg: null,
-                arguments: [comments.length]
-            });
+        insertComment(comment);
+    }
 
-            insertComment(comment);
-        }
+    // Wraper function around `insertComment` which registers the events.
+    function deleteComment (index) {
+        tracker.register({
+            method: removeComment,
+            thisArg: null,
+            arguments: [index]
+        }, {
+            method: insertComment,
+            thisArg: null,
+            arguments: [comments[index]]
+        });
 
-        // Wraper function around `insertComment` which registers the events.
-        function deleteComment (index) {
-            tracker.register({
-                method: removeComment,
-                thisArg: null,
-                arguments: [index]
-            }, {
-                method: insertComment,
-                thisArg: null,
-                arguments: [comments[index]]
-            });
+        removeComment(index);
+    };
 
-            removeComment(index);
-        };
+    addComment("Comment 1");
+    console.log(comments); // Logs ["Comment 1"]
 
-        addComment("Comment 1");
-        console.log(comments); // Logs ["Comment 1"]
+    addComment("Comment 2");
+    console.log(comments); // Logs ["Comment 1", "Comment 2"]
 
-        addComment("Comment 2");
-        console.log(comments); // Logs ["Comment 1", "Comment 2"]
+    addComment("Comment 3");
+    console.log(comments); // Logs ["Comment 1", "Comment 2", "Comment 3"]
 
-        addComment("Comment 3");
-        console.log(comments); // Logs ["Comment 1", "Comment 2", "Comment 3"]
+    deleteComment(2);
+    console.log(comments); // Logs ["Comment 1", "Comment 2"]
 
-        deleteComment(2);
-        console.log(comments); // Logs ["Comment 1", "Comment 2"]
+    tracker.undo();
+    console.log(comments); // Logs ["Comment 1", "Comment 2", "Comment 3"]
 
-        tracker.undo();
-        console.log(comments); // Logs ["Comment 1", "Comment 2", "Comment 3"]
+    tracker.redo();
+    console.log(comments); // Logs ["Comment 1", "Comment 2"]
 
-        tracker.redo();
-        console.log(comments); // Logs ["Comment 1", "Comment 2"]
+    tracker.undo();
+    console.log(comments); // Logs ["Comment 1", "Comment 2", "Comment 3"]
 
-        tracker.undo();
-        console.log(comments); // Logs ["Comment 1", "Comment 2", "Comment 3"]
+    tracker.undo();
+    console.log(comments); // Logs ["Comment 1", "Comment 2"]
 
-        tracker.undo();
-        console.log(comments); // Logs ["Comment 1", "Comment 2"]
+    tracker.undo();
+    console.log(comments); // Logs ["Comment 1"]
 
-        tracker.undo();
-        console.log(comments); // Logs ["Comment 1"]
-
-        tracker.undo();
-        console.log(comments); // Logs []
-    })();
+    tracker.undo();
+    console.log(comments); // Logs []
+})();
+```
