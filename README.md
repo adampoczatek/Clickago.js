@@ -4,7 +4,7 @@
 
 ## API
 
-### `.register(actionOptions, rollbackOptions)`
+### .register(actionOptions, rollbackOptions)
 
 Use this method to register events.
 
