@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    var Clickago, Action, _bind, _call;
+    var Clickago, Action, _call;
 
     /**
      * Clickago constructor.
@@ -72,6 +72,13 @@
         return _call(action.rollback);
     };
 
+    /**
+     * This function gets the latest registered rollback and calls it.
+     *
+     * @method redo
+     * @memberOf Clickago
+     * @returns {*}
+     */
     Clickago.prototype.redo = function () {
         var action;
 
@@ -110,6 +117,15 @@
         this.rollback = options.rollback;
     };
 
+    /**
+     * Simple method for calling actions and rollbacks.
+     *
+     * @method _call
+     * @memberOf Clickago
+     * @param actionOptions
+     * @returns {*}
+     * @private
+     */
     _call = function (actionOptions) {
         return actionOptions.method.apply(actionOptions.thisArg, actionOptions.arguments);
     };
