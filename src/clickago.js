@@ -42,7 +42,7 @@
 
         this.canRedo = false;
 
-        this.canUndo = true;
+        this.canUndo = !this.disabled;
     };
 
     /**
@@ -55,7 +55,7 @@
     Clickago.prototype.undo = function () {
         var action;
 
-        if (!this.canUndo) {
+        if (this.disabled || !this.canUndo) {
             return;
         }
 
@@ -82,7 +82,7 @@
     Clickago.prototype.redo = function () {
         var action;
 
-        if (!this.canRedo) {
+        if (this.disabled || !this.canRedo) {
             return;
         }
 
@@ -97,6 +97,34 @@
         this.canRedo = !!this.rollbacks.length;
 
         return _call(action.action);
+    };
+
+    /**
+     * Disables Clickago undo/redo methods.
+     *
+     * @method disable
+     * @memberOf Clickago
+     */
+    Clickago.prototype.disable = function () {
+        this.disabled = true;
+
+        this.canUndo = false;
+
+        this.canRedo = false;
+    };
+
+    /**
+     * Enables Clickago undo/redo methods.
+     *
+     * @method enable
+     * @memberOf Clickago
+     */
+    Clickago.prototype.enable = function () {
+        this.disabled = false;
+
+        this.canUndo = !!this.actions.length;
+
+        this.canRedo = !!this.rollbacks.length;
     };
 
     /**

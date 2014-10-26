@@ -5,16 +5,13 @@ describe("Clickago", function() {
         Tracker = new Clickago();
     });
 
-    it("register", function () {
+    it("should properly redo actions", function () {
         var action1,
             action2,
             action3,
             rollback1,
             rollback2,
-            rollback3,
-            track1,
-            track2,
-            track3;
+            rollback3;
 
         action1 = function (text) {
             return "action 1 " +  text;
@@ -40,7 +37,7 @@ describe("Clickago", function() {
             return "rollback 3 " + text;
         };
 
-        track1 = Tracker.register({
+        Tracker.register({
             method: action1,
             arguments: ["called 1"]
         }, {
@@ -48,7 +45,7 @@ describe("Clickago", function() {
             arguments: ["called 1"]
         });
 
-        track2 = Tracker.register({
+        Tracker.register({
             method: action2,
             arguments: ["called 2"]
         }, {
@@ -56,7 +53,7 @@ describe("Clickago", function() {
             arguments: ["called 2"]
         });
 
-        track3 = Tracker.register({
+        Tracker.register({
             method: action3,
             arguments: ["called 3"]
         }, {
@@ -67,5 +64,16 @@ describe("Clickago", function() {
         expect(Tracker.undo()).toBe("rollback 3 called 3");
         expect(Tracker.undo()).toBe("rollback 2 called 2");
         expect(Tracker.undo()).toBe("rollback 1 called 1");
+
+        expect(Tracker.actions.length).toBe(0);
+
+        expect(Tracker.redo()).toBe("action 1 called 1");
+        expect(Tracker.actions.length).toBe(1);
+
+        expect(Tracker.redo()).toBe("action 2 called 2");
+        expect(Tracker.actions.length).toBe(2);
+
+        expect(Tracker.redo()).toBe("action 3 called 3");
+        expect(Tracker.actions.length).toBe(3);
     });
 });

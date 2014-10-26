@@ -64,6 +64,12 @@ Boolean values indicating whether you can use `.undo()` and/or `.redo()`.
 
 ___
 
+### .disable()
+
+Disables `.undo()` and `.redo()`
+
+___
+
 ## Example
 
 ```javascript

@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'dist/clickago.js',
+      'dist/clickago.min.js',
       'test/**/*Spec.js'
     ],
 
