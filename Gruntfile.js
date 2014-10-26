@@ -8,11 +8,12 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
         buildDest: "./dist",
+        srcDest: "./src",
         srcFiles: [
             "./src/**/*.js"
         ],
 
-        concat: require("./build_tasks/concat/concat.js"),
+        uglify: require("./build_tasks/uglify/uglify.js"),
         connect: require("./build_tasks/connect/connect.js"),
         jsdoc: require("./build_tasks/jsdoc/jsdoc.js"),
         watch: require("./build_tasks/watch/watch.js")
@@ -20,7 +21,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask("start", ["build", "connect", "watch"]);
 
-    grunt.registerTask("build", ["concat", "jsdoc"]);
+    grunt.registerTask("build", ["uglify", "jsdoc"]);
 
     grunt.registerTask("default", ["start"]);
 };
