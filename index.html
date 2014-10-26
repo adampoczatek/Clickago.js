@@ -6,14 +6,20 @@
 </head>
 <body>
     <div ng-controller="MyController as app">
-        <button ng-click="app.undo()" ng-disabled="!app.tracker.canUndo">Undo</button>
-        <button ng-click="app.redo()" ng-disabled="!app.tracker.canRedo">Redo</button>
+        <div>
+            <button ng-click="app.undo()" ng-disabled="!app.tracker.canUndo">Undo</button>
+            <button ng-click="app.redo()" ng-disabled="!app.tracker.canRedo">Redo</button>
+            <button ng-click="app.tracker.disable()" ng-disabled="app.tracker.disabled">Disable</button>
+            <button ng-click="app.tracker.enable()" ng-disabled="!app.tracker.disabled">Enable</button>
+        </div>
 
         <p ng-repeat="comment in app.comments track by $index">{{comment}} <a ng-click="app.remove($index)">Remove</a></p>
 
         <textarea ng-model="app.text"></textarea>
 
-        <button ng-click="app.submit(app.text)" ng-disabled="!app.text.length">Submit</button>
+        <div>
+            <button ng-click="app.submit(app.text)" ng-disabled="!app.text.length">Submit</button>
+        </div>
     </div>
 
     <script src="bower_components/angular/angular.js"></script>
