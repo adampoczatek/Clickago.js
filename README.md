@@ -80,9 +80,9 @@ tracker.canRedo; // false
 ```
 ___
 
-### .disable()
+### .enable()
 
-Disables `.undo()` and `.redo()` methods (you can still register new actions).
+Enables `.undo()` and `.redo()`.
 
 Example:
 
