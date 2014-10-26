@@ -2,6 +2,8 @@
 
 *Clickago.js* is a lightweight framework for implementing *Undo*/*Redo* functionality on a web page.
 
+[Basic Demo](http://adampoczatek.github.io/Clickago.js/)
+
 ## API
 
 ### .register(actionOptions, rollbackOptions)
