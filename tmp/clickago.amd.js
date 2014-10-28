@@ -16,7 +16,7 @@ define("src/clickago.ES6",
         this.rollbacks = [];
 
         this.canRedo = null;
-
+        
         this.canUndo = null;
         
         /**

@@ -2,7 +2,7 @@ module.exports = {
     toCJS: {
         type: "cjs",
         files: {
-            "<%= tmpDest %>/<%= pkg.name %>.commonjs.js": ['<%= srcDest %>/<%= pkg.name %>.ES6.js']
+            "<%= tmpDest %>/<%= pkg.name %>.commonjs.js": ["<%= srcDest %>/<%= pkg.name %>.ES6.js"]
         },
     },
     toAMD: {

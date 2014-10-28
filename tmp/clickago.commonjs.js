@@ -13,7 +13,7 @@ function Clickago() {
     this.rollbacks = [];
 
     this.canRedo = null;
-
+    
     this.canUndo = null;
     
     /**
