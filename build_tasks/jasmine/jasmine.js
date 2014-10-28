@@ -1,6 +1,6 @@
 module.exports = {
     unit: {
-      src: "<%= buildDest %>/<%= pkg.name %>.globals.min.js",
+      src: "<%= buildDest %>/<%= pkg.name %>.min.js",
       options: {
         specs: "test/**/*Spec.js"
       }

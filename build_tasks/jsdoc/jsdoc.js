@@ -1,6 +1,6 @@
 module.exports = {
     dist: {
-        src: "<%= srcDest %>/<%= pkg.name %>.js",
+        src: "<%= buildDest %>/<%= pkg.name %>.js",
         dest: "./documentation"
     }
 };
