@@ -12,9 +12,9 @@ function Clickago() {
 
     this.rollbacks = [];
 
-    this.canRedo = null;
+    this.canRedo = false;
     
-    this.canUndo = null;
+    this.canUndo = false;
     
     /**
      * @method register

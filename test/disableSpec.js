@@ -72,5 +72,6 @@ describe("Clickago", function() {
         Tracker.enable();
 
         expect(Tracker.undo()).toBe("rollback 1 called 1");
+        
     });
 });
