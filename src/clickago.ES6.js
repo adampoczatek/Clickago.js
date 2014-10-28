@@ -1,18 +1,20 @@
- /**
-  * Clickago constructor
-  * @constructor
-  */
-export function Clickago () {
+/*jslint esnext:true */
+/**
+     * Clickago constructor.
+     *
+     * @class Clickago
+     */
+export function Clickago() {
     var Action, _call;
 
     this.actions = [];
 
     this.rollbacks = [];
 
-    this.canRedo = null;
-
-    this.canUndo = null;
-
+    this.canRedo = false;
+    
+    this.canUndo = false;
+    
     /**
      * @method register
      * @memberOf Clickago
@@ -133,7 +135,7 @@ export function Clickago () {
      * Data model for actions.
      *
      * @class Action
-     * @memberOf Models
+     * @memberOf Clickago.Models
      */
     Action = function (options) {
         this.action = options.action;
@@ -152,4 +154,5 @@ export function Clickago () {
     _call = function (actionOptions) {
         return actionOptions.method.apply(actionOptions.thisArg, actionOptions.arguments);
     };
+
 }

@@ -2,21 +2,23 @@ define("src/clickago.ES6",
   ["exports"],
   function(__exports__) {
     "use strict";
-     /**
-      * Clickago constructor
-      * @constructor
-      */
-    function Clickago () {
+    /*jslint esnext:true */
+    /**
+         * Clickago constructor.
+         *
+         * @class Clickago
+         */
+    function Clickago() {
         var Action, _call;
 
         this.actions = [];
 
         this.rollbacks = [];
 
-        this.canRedo = null;
-
-        this.canUndo = null;
-
+        this.canRedo = false;
+        
+        this.canUndo = false;
+        
         /**
          * @method register
          * @memberOf Clickago
@@ -137,7 +139,7 @@ define("src/clickago.ES6",
          * Data model for actions.
          *
          * @class Action
-         * @memberOf Models
+         * @memberOf Clickago.Models
          */
         Action = function (options) {
             this.action = options.action;
@@ -156,6 +158,7 @@ define("src/clickago.ES6",
         _call = function (actionOptions) {
             return actionOptions.method.apply(actionOptions.thisArg, actionOptions.arguments);
         };
+
     }
     __exports__.Clickago = Clickago;
   });

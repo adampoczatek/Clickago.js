@@ -1,19 +1,21 @@
 "use strict";
- /**
-  * Clickago constructor
-  * @constructor
-  */
-function Clickago () {
+/*jslint esnext:true */
+/**
+     * Clickago constructor.
+     *
+     * @class Clickago
+     */
+function Clickago() {
     var Action, _call;
 
     this.actions = [];
 
     this.rollbacks = [];
 
-    this.canRedo = null;
-
-    this.canUndo = null;
-
+    this.canRedo = false;
+    
+    this.canUndo = false;
+    
     /**
      * @method register
      * @memberOf Clickago
@@ -134,7 +136,7 @@ function Clickago () {
      * Data model for actions.
      *
      * @class Action
-     * @memberOf Models
+     * @memberOf Clickago.Models
      */
     Action = function (options) {
         this.action = options.action;
@@ -153,5 +155,6 @@ function Clickago () {
     _call = function (actionOptions) {
         return actionOptions.method.apply(actionOptions.thisArg, actionOptions.arguments);
     };
+
 }
 exports.Clickago = Clickago;
