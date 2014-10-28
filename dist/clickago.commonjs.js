@@ -1,22 +1,18 @@
-(function () {
-    "use strict";
+"use strict";
+ /**
+  * Clickago constructor
+  * @constructor
+  */
+function Clickago () {
+    var Action, _call;
 
-    var Clickago, Action, _call;
+    this.actions = [];
 
-    /**
-     * Clickago constructor.
-     *
-     * @class Clickago
-     */
-    Clickago = function () {
-        this.actions = [];
+    this.rollbacks = [];
 
-        this.rollbacks = [];
+    this.canRedo = null;
 
-        this.canRedo = null;
-
-        this.canUndo = null;
-    };
+    this.canUndo = null;
 
     /**
      * @method register
@@ -31,7 +27,7 @@
      * @param {Array=} rollbackOptions.arguments - An array of arguments.
      * @returns {Function} - Returns function bound with `this` and `arguments`.
      */
-    Clickago.prototype.register = function (actionOptions, rollbackOptions) {
+    this.register = function (actionOptions, rollbackOptions) {
         this.actions[this.actions.length] = new Action({
             rollback: rollbackOptions,
             action: actionOptions
@@ -52,7 +48,7 @@
      * @memberOf Clickago
      * @returns {*}
      */
-    Clickago.prototype.undo = function () {
+    this.undo = function () {
         var action;
 
         if (this.disabled || !this.canUndo) {
@@ -79,7 +75,7 @@
      * @memberOf Clickago
      * @returns {*}
      */
-    Clickago.prototype.redo = function () {
+    this.redo = function () {
         var action;
 
         if (this.disabled || !this.canRedo) {
@@ -105,7 +101,7 @@
      * @method disable
      * @memberOf Clickago
      */
-    Clickago.prototype.disable = function () {
+    this.disable = function () {
         this.disabled = true;
 
         this.canUndo = false;
@@ -119,7 +115,7 @@
      * @method enable
      * @memberOf Clickago
      */
-    Clickago.prototype.enable = function () {
+    this.enable = function () {
         this.disabled = false;
 
         this.canUndo = !!this.actions.length;
@@ -138,7 +134,7 @@
      * Data model for actions.
      *
      * @class Action
-     * @memberOf Clickago.Models
+     * @memberOf Models
      */
     Action = function (options) {
         this.action = options.action;
@@ -157,6 +153,5 @@
     _call = function (actionOptions) {
         return actionOptions.method.apply(actionOptions.thisArg, actionOptions.arguments);
     };
-
-    window.Clickago = Clickago;
-})();
+}
+exports.Clickago = Clickago;
