@@ -12,6 +12,7 @@ module.exports = function (grunt) {
     
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
+        tmpDest: "./tmp",
         buildDest: "./dist",
         srcDest: "./src",
         srcFiles: [
@@ -19,43 +20,8 @@ module.exports = function (grunt) {
         ],
 
         uglify: require("./build_tasks/uglify/uglify.js"),
-        transpile: {
-            //main: {
-            //    type: "amd",//"cjs", // or "amd" or "yui"
-            //    files: [{
-            //        expand: true,
-            //        cwd: 'src/',
-            //        src: ['**/*.ES6.js'],
-            //        dest: 'tmp/'
-            //    }]
-            //}
-                     toCJS: {
-        type: "cjs",
-        files: {
-          'tmp/clickago.commonjs.js': ['src/clickago.ES6.js']
-        },
-      },
-      toAMD: {
-        type: "amd",
-        files: {
-          'tmp/clickago.amd.js': ['src/clickago.ES6.js']
-        }
-      },
-      toYUI: {
-        type: "yui",
-        files: {
-          'tmp/clickago.yui.js': ['src/clickago.ES6.js']
-        }
-      },
-      toGlobals: {
-        type: "globals",
-        imports: { bar: "Clickago" },
-        files: {
-          'tmp/clickago.globals.js': ['src/clickago.ES6.js']
-        }
-      },
-            
-        },
+        
+        transpile: require("./build_tasks/transpile/transpile.js"),
         
         jsdoc: require("./build_tasks/jsdoc/jsdoc.js"),
         
