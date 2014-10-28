@@ -20,16 +20,16 @@ module.exports = function (grunt) {
         jasmine: require("./build_tasks/jasmine/jasmine.js"),
         
         jsdoc: require("./build_tasks/jsdoc/jsdoc.js"),
-    
+
+        jshint: require("./build_tasks/jshint/jshint.js"),
+
         watch: require("./build_tasks/watch/watch.js")
             
     });
  
     grunt.registerTask("start", ["build", "watch"]);
 
-    grunt.registerTask("build", ["transpile", "uglify", "jasmine", "jsdoc"]);
-
-    //grunt.registerTask("test", ["karma"]);
+    grunt.registerTask("build", ["transpile", "jshint", "uglify", "jasmine", "jsdoc"]);
 
     grunt.registerTask("default", ["start"]);
 };
