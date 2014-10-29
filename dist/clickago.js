@@ -1,11 +1,10 @@
 (function(__exports__) {
   "use strict";
-  /*jslint esnext:true */
   /**
-       * Clickago constructor.
-       *
-       * @class Clickago
-       */
+   * Clickago constructor.
+   *
+   * @class Clickago
+   */
   function Clickago() {
       var Action, _call;
 
@@ -16,7 +15,7 @@
       this.canRedo = false;
       
       this.canUndo = false;
-      
+
       /**
        * @method register
        * @memberOf Clickago
@@ -156,7 +155,6 @@
       _call = function (actionOptions) {
           return actionOptions.method.apply(actionOptions.thisArg, actionOptions.arguments);
       };
-
   }
   __exports__.Clickago = Clickago;
 })(window);

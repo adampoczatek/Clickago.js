@@ -1,10 +1,9 @@
 "use strict";
-/*jslint esnext:true */
 /**
-     * Clickago constructor.
-     *
-     * @class Clickago
-     */
+ * Clickago constructor.
+ *
+ * @class Clickago
+ */
 function Clickago() {
     var Action, _call;
 
@@ -15,7 +14,7 @@ function Clickago() {
     this.canRedo = false;
     
     this.canUndo = false;
-    
+
     /**
      * @method register
      * @memberOf Clickago
@@ -155,6 +154,5 @@ function Clickago() {
     _call = function (actionOptions) {
         return actionOptions.method.apply(actionOptions.thisArg, actionOptions.arguments);
     };
-
 }
 exports.Clickago = Clickago;
