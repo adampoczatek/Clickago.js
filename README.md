@@ -30,7 +30,7 @@ var clickago = new Clickago();
 
 ### 3. Register Actions.
 
-I suggest wrapping your current functions, here's an example:
+Ideally, you should wrap your functions and separate events (where you register your actions) from the functionality.
 
 
 ```javascript
