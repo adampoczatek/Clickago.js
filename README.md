@@ -114,37 +114,40 @@ objects and accept the same options:
 
 Example:
 
-    var clickago = new Clickago()
-    
-    clickago.register({
-        method: addUser,
-        thisArg: window,
-        arguments: ["Mike", "mike@acme.com"]
-    }, {
-        method: removeUser,
-        thisArg: window,
-        arguments: ["mike@acme.com"]
-    });
+```javascript
+var clickago = new Clickago()
 
+clickago.register({
+    method: addUser,
+    thisArg: window,
+    arguments: ["Mike", "mike@acme.com"]
+}, {
+    method: removeUser,
+    thisArg: window,
+    arguments: ["mike@acme.com"]
+});
+```
 **.undo()**
 
 Use `.undo()` to call the latest registered rollback.
 
-Example
+Example:
 
-    var clickago = new Clickago()
-        
-    clickago.register({
-        method: addUser,
-        thisArg: window,
-        arguments: ["Mike", "mike@acme.com"]
-    }, {
-        method: removeUser,
-        thisArg: window,
-        arguments: ["mike@acme.com"]
-    });
+```javascript
+var clickago = new Clickago()
     
-    clickago.undo(); // Same as calling removeUser.apply(window, ["mike@acme.com"]); 
+clickago.register({
+    method: addUser,
+    thisArg: window,
+    arguments: ["Mike", "mike@acme.com"]
+}, {
+    method: removeUser,
+    thisArg: window,
+    arguments: ["mike@acme.com"]
+});
+
+clickago.undo(); // Same as calling removeUser.apply(window, ["mike@acme.com"]); 
+```
     
 
 **.redo()**
@@ -153,21 +156,23 @@ Use redo to call the latest registered action (works only after calling the `.un
 
 Example: 
 
-    var clickago = new Clickago()
-        
-    clickago.register({
-        method: addUser,
-        thisArg: window,
-        arguments: ["Mike", "mike@acme.com"]
-    }, {
-        method: removeUser,
-        thisArg: window,
-        arguments: ["mike@acme.com"]
-    });
+```javascript
+var clickago = new Clickago()
     
-    clickago.undo(); // Same as calling removeUser.apply(window, ["mike@acme.com"]);
-    
-    clickago.redo(); // Same as calling addUser.apply(window, ["Mike", "mike@acme.com"]); 
+clickago.register({
+    method: addUser,
+    thisArg: window,
+    arguments: ["Mike", "mike@acme.com"]
+}, {
+    method: removeUser,
+    thisArg: window,
+    arguments: ["mike@acme.com"]
+});
+
+clickago.undo(); // Same as calling removeUser.apply(window, ["mike@acme.com"]);
+
+clickago.redo(); // Same as calling addUser.apply(window, ["Mike", "mike@acme.com"]); 
+```
 
 **.disable()**
 
@@ -176,21 +181,23 @@ method.
 
 Example:
 
-    var clickago = new Clickago()
-        
-    clickago.register({
-        method: addUser,
-        thisArg: window,
-        arguments: ["Mike", "mike@acme.com"]
-    }, {
-        method: removeUser,
-        thisArg: window,
-        arguments: ["mike@acme.com"]
-    });
+```javascript
+var clickago = new Clickago()
     
-    clickago.disable();
-    
-    clickago.undo(); // Returns 'undefined' and no actions get called.
+clickago.register({
+    method: addUser,
+    thisArg: window,
+    arguments: ["Mike", "mike@acme.com"]
+}, {
+    method: removeUser,
+    thisArg: window,
+    arguments: ["mike@acme.com"]
+});
+
+clickago.disable();
+
+clickago.undo(); // Returns 'undefined' and no actions get called.
+```
 
 **.enable()**
 
@@ -198,25 +205,27 @@ Use this method to enable Clickago.
 
 Example:
 
-    var clickago = new Clickago()
-        
-    clickago.register({
-        method: addUser,
-        thisArg: window,
-        arguments: ["Mike", "mike@acme.com"]
-    }, {
-        method: removeUser,
-        thisArg: window,
-        arguments: ["mike@acme.com"]
-    });
+```javascript
+var clickago = new Clickago()
     
-    clickago.disable();
-    
-    clickago.undo(); // Returns 'undefined' and no actions get called.
-    
-    clickago.enable();
-    
-    clickago.undo(); // Same as calling removeUser.apply(window, ["mike@acme.com"]);
+clickago.register({
+    method: addUser,
+    thisArg: window,
+    arguments: ["Mike", "mike@acme.com"]
+}, {
+    method: removeUser,
+    thisArg: window,
+    arguments: ["mike@acme.com"]
+});
+
+clickago.disable();
+
+clickago.undo(); // Returns 'undefined' and no actions get called.
+
+clickago.enable();
+
+clickago.undo(); // Same as calling removeUser.apply(window, ["mike@acme.com"]);
+```
 
 **.canUndo and .canRedo**
 
